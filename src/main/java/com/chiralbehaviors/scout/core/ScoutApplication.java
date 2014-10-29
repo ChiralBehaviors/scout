@@ -19,17 +19,19 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.List;
+
+import com.chiralbehaviors.scout.rest.Service;
 import com.chiralbehaviors.scout.rest.ServiceResource;
 
 /**
  * @author hparry
  *
  */
-public class ScoutApplication extends Application<ScoutConfiguration>{
+public abstract class ScoutApplication extends Application<ScoutConfiguration>{
     
-    public static void main(String[] argv) throws Exception {
-        new ScoutApplication().run(argv);
-    }
+    private List<Service> services;
+    
 
     /* (non-Javadoc)
      * @see io.dropwizard.Application#initialize(io.dropwizard.setup.Bootstrap)
@@ -43,10 +45,22 @@ public class ScoutApplication extends Application<ScoutConfiguration>{
      * @see io.dropwizard.Application#run(io.dropwizard.Configuration, io.dropwizard.setup.Environment)
      */
     @Override
-    public void run(ScoutConfiguration configuration, Environment environment)
+    public final void run(ScoutConfiguration configuration, Environment environment)
                                                                               throws Exception {
-        environment.jersey().register(new ServiceResource());
+        services = getServices();
+        environment.jersey().register(new ServiceResource(services));
+        while (true) {
+            for (Service service : services) {
+                service.updateStatus();
+            }
+            Thread.sleep(10000);
+        }
         
     }
+
+    /**
+     * @return a list of Services to be monitored
+     */
+    public abstract List<Service> getServices();
 
 }

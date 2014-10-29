@@ -15,7 +15,6 @@
  */
 package com.chiralbehaviors.scout.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -32,8 +31,8 @@ public class ServiceResource {
 
     private List<Service> services;
 
-    public ServiceResource() {
-        services = new ArrayList<>();
+    public ServiceResource(List<Service> services) {
+        this.services = services;
     }
 
     @GET

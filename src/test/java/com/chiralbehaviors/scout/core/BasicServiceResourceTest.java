@@ -15,9 +15,13 @@
  */
 package com.chiralbehaviors.scout.core;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import com.chiralbehaviors.scout.rest.Service;
 import com.chiralbehaviors.scout.rest.ServiceResource;
 
 /**
@@ -28,9 +32,7 @@ public class BasicServiceResourceTest {
 
     @Test
     public void testResource() {
-        ServiceResource resource = new ServiceResource();
-
-        resource.register(new TestService());
+        ServiceResource resource = new ServiceResource(Arrays.asList(new Service[] {new TestService()}));
 
         assertTrue(resource.getServices().get(0).isGreen());
     }

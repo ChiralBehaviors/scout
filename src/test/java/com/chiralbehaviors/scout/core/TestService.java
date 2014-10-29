@@ -39,4 +39,13 @@ public class TestService implements Service {
         return "My Test Service";
     }
 
+    /* (non-Javadoc)
+     * @see com.chiralbehaviors.scout.rest.Service#updateStatus()
+     */
+    @Override
+    public void updateStatus() {
+        //no op
+        
+    }
+
 }

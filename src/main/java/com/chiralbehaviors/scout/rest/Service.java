@@ -24,5 +24,7 @@ public interface Service {
     boolean isGreen();
     
     String getName();
+    
+    void updateStatus();
 
 }
