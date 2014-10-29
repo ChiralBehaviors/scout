@@ -15,38 +15,25 @@
  */
 package com.chiralbehaviors.scout.core;
 
+import java.util.List;
+
 import com.chiralbehaviors.scout.rest.Service;
 
 /**
  * @author hparry
  *
  */
-public class TestService implements Service {
-
-    boolean isGreen = true;
-    /* (non-Javadoc)
-     * @see com.chiralbehaviors.scout.rest.Service#isGreen()
-     */
-    @Override
-    public boolean isGreen() {
-        return isGreen;
-    }
+public class SampleScoutApplication extends ScoutApplication {
 
     /* (non-Javadoc)
-     * @see com.chiralbehaviors.scout.rest.Service#getName()
+     * @see com.chiralbehaviors.scout.core.ScoutApplication#getServices()
      */
     @Override
-    public String getName() {
-        return "My Test Service";
+    public List<Service> getServices() {
+        return null;
     }
-
-    /* (non-Javadoc)
-     * @see com.chiralbehaviors.scout.rest.Service#updateStatus()
-     */
-    @Override
-    public void updateStatus() {
-        isGreen = (Math.floor(Math.random() * 10))%2 == 0;
-        
+    
+    public static void main(String[] argv) throws Exception {
+        new SampleScoutApplication().run(argv);
     }
-
 }

@@ -16,9 +16,11 @@
 package com.chiralbehaviors.scout.core;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.chiralbehaviors.scout.rest.Service;
@@ -38,7 +40,7 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration>{
      */
     @Override
     public void initialize(Bootstrap<ScoutConfiguration> bootstrap) {
-        
+        bootstrap.addBundle(new AssetsBundle("/ui/", "/ui/"));
     }
 
     /* (non-Javadoc)
@@ -48,13 +50,16 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration>{
     public final void run(ScoutConfiguration configuration, Environment environment)
                                                                               throws Exception {
         services = getServices();
-        environment.jersey().register(new ServiceResource(services));
-        while (true) {
-            for (Service service : services) {
-                service.updateStatus();
-            }
-            Thread.sleep(10000);
+        if (services == null) {
+            services = Collections.emptyList();
         }
+        environment.jersey().register(new ServiceResource(services));
+//        while (true) {
+//            for (Service service : services) {
+//                service.updateStatus();
+//            }
+//            Thread.sleep(10000);
+//        }
         
     }
 
