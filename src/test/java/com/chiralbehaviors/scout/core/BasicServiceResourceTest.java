@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,8 @@ public class BasicServiceResourceTest {
 
     @Test
     public void testResource() {
-        ServiceResource resource = new ServiceResource(Arrays.asList(new Service[] {new TestService()}));
+        ServiceResource resource = new ServiceResource(
+                                                       Arrays.asList(new Service[] { new TestService() }));
 
         assertTrue(resource.getServices().get(0).isGreen());
     }

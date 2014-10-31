@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.chiralbehaviors.scout.rest.Service;
 import com.chiralbehaviors.scout.rest.ServiceResource;
@@ -34,10 +33,14 @@ import com.chiralbehaviors.scout.rest.ServiceResource;
  * @author hparry
  *
  */
-public abstract class ScoutApplication extends Application<ScoutConfiguration>{
-    
+public abstract class ScoutApplication extends Application<ScoutConfiguration> {
+
     private List<Service> services;
-    
+
+    /**
+     * @return a list of Services to be monitored
+     */
+    public abstract List<Service> getServices();
 
     /* (non-Javadoc)
      * @see io.dropwizard.Application#initialize(io.dropwizard.setup.Bootstrap)
@@ -51,28 +54,25 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration>{
      * @see io.dropwizard.Application#run(io.dropwizard.Configuration, io.dropwizard.setup.Environment)
      */
     @Override
-    public final void run(ScoutConfiguration configuration, Environment environment)
-                                                                              throws Exception {
+    public final void run(ScoutConfiguration configuration,
+                          Environment environment) throws Exception {
         services = getServices();
         if (services == null) {
             services = Collections.emptyList();
         }
-        
+
         environment.jersey().register(new ServiceResource(services));
         List<ScheduledUpdaterService> emissaries = new ArrayList<>();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(services.size());
-        
+
         for (Service service : services) {
-            ScheduledUpdaterService updater = new ScheduledUpdaterService(service);
-            scheduler.scheduleAtFixedRate(updater, 0, 10, TimeUnit.SECONDS);
+            ScheduledUpdaterService updater = new ScheduledUpdaterService(
+                                                                          service);
+            scheduler.scheduleAtFixedRate(updater, 0, service.getInterval(),
+                                          service.getTimeUnit());
             emissaries.add(updater);
         }
-        
-    }
 
-    /**
-     * @return a list of Services to be monitored
-     */
-    public abstract List<Service> getServices();
+    }
 
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,8 @@
  */
 package com.chiralbehaviors.scout.core;
 
+import java.util.concurrent.TimeUnit;
+
 import com.chiralbehaviors.scout.rest.Service;
 
 /**
@@ -24,12 +26,13 @@ import com.chiralbehaviors.scout.rest.Service;
 public class TestService implements Service {
 
     boolean isGreen = true;
+
     /* (non-Javadoc)
-     * @see com.chiralbehaviors.scout.rest.Service#isGreen()
+     * @see com.chiralbehaviors.scout.rest.Service#getInterval()
      */
     @Override
-    public boolean isGreen() {
-        return isGreen;
+    public int getInterval() {
+        return 10;
     }
 
     /* (non-Javadoc)
@@ -41,12 +44,28 @@ public class TestService implements Service {
     }
 
     /* (non-Javadoc)
+     * @see com.chiralbehaviors.scout.rest.Service#getTimeUnit()
+     */
+    @Override
+    public TimeUnit getTimeUnit() {
+        return TimeUnit.SECONDS;
+    }
+
+    /* (non-Javadoc)
+     * @see com.chiralbehaviors.scout.rest.Service#isGreen()
+     */
+    @Override
+    public boolean isGreen() {
+        return isGreen;
+    }
+
+    /* (non-Javadoc)
      * @see com.chiralbehaviors.scout.rest.Service#updateStatus()
      */
     @Override
     public void updateStatus() {
-        isGreen = (Math.floor(Math.random() * 10))%2 == 0;
-        
+        isGreen = Math.floor(Math.random() * 10) % 2 == 0;
+
     }
 
 }

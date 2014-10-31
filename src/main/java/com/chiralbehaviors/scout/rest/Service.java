@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,16 +15,41 @@
  */
 package com.chiralbehaviors.scout.rest;
 
+import java.util.concurrent.TimeUnit;
+
 /**
+ * The interface representing the service or operation to be monitored.
  * @author hparry
  *
  */
 public interface Service {
-    
-    boolean isGreen();
-    
+
+    /**
+     * 
+     * @return the interval defining the period between status updates. 
+     * The unit is determined by the getTimeUnit() return value.
+     */
+    int getInterval();
+
+    /**
+     * 
+     * @return the name of the service
+     */
     String getName();
     
+    TimeUnit getTimeUnit();
+
+    /**
+     * 
+     * @return the most recent status of the service
+     */
+    boolean isGreen();
+
+    /**
+     * This method is called asynchronously by the dropwizard service to
+     * update the status of the monitored service. This method is what updates
+     * the isGreen() return value. 
+     */
     void updateStatus();
 
 }

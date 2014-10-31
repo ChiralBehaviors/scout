@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,6 +26,10 @@ import com.chiralbehaviors.scout.rest.Service;
  */
 public class SampleScoutApplication extends ScoutApplication {
 
+    public static void main(String[] argv) throws Exception {
+        new SampleScoutApplication().run(argv);
+    }
+
     /* (non-Javadoc)
      * @see com.chiralbehaviors.scout.core.ScoutApplication#getServices()
      */
@@ -34,9 +38,5 @@ public class SampleScoutApplication extends ScoutApplication {
         List<Service> services = new ArrayList<>();
         services.add(new TestService());
         return services;
-    }
-    
-    public static void main(String[] argv) throws Exception {
-        new SampleScoutApplication().run(argv);
     }
 }
