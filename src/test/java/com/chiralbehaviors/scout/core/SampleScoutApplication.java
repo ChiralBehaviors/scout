@@ -15,6 +15,8 @@
  */
 package com.chiralbehaviors.scout.core;
 
+import io.dropwizard.setup.Environment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +40,13 @@ public class SampleScoutApplication extends ScoutApplication {
         List<Service> services = new ArrayList<>();
         services.add(new TestService());
         return services;
+    }
+
+    /* (non-Javadoc)
+     * @see com.chiralbehaviors.scout.core.ScoutApplication#initialize(com.chiralbehaviors.scout.core.ScoutConfiguration, io.dropwizard.setup.Environment)
+     */
+    @Override
+    public void initialize(ScoutConfiguration configuration,
+                           Environment environment) {
     }
 }

@@ -56,6 +56,7 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration> {
     @Override
     public final void run(ScoutConfiguration configuration,
                           Environment environment) throws Exception {
+        initialize(configuration, environment);
         services = getServices();
         if (services == null) {
             services = Collections.emptyList();
@@ -74,5 +75,7 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration> {
         }
 
     }
+    
+    public abstract void initialize(ScoutConfiguration configuration, Environment environment);
 
 }
