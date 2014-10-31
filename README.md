@@ -10,6 +10,16 @@ Scout is a lightweight DropWizard service that will display the status of any se
 To use:
 -------
 
+Add our repository to your pom:
+
+    <repository>
+        <id>chiralbehaviors-snapshots</id>
+        <url>http://repository-chiralbehaviors.forge.cloudbees.com/snapshot/</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+
 Add your dependency:
 
     <dependency>
