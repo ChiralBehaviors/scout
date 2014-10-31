@@ -12,11 +12,11 @@ To use:
 
 Add your dependency:
 
-<dependency>
-    <groupId>com.chiralbehaviors</groupId>
-    <artifactId>scout</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-</dependency>
+    <dependency>
+        <groupId>com.chiralbehaviors</groupId>
+        <artifactId>scout</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
 Create your services. Implement the com.chiralbehaviors.scout.rest.Service interface. updateStatus() is where you put your service testing. 
 
@@ -25,3 +25,5 @@ Create a ScoutApplication. Extend the existing one. The only thing you need to d
 Create a yaml file for your server config. 
 
 Start 'er up.
+
+Check out the /src/test/ directory for an example app, example service, and example config file.
