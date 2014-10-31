@@ -15,7 +15,7 @@
  */
 package com.chiralbehaviors.scout.core;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chiralbehaviors.scout.rest.Service;
@@ -31,7 +31,9 @@ public class SampleScoutApplication extends ScoutApplication {
      */
     @Override
     public List<Service> getServices() {
-        return Arrays.asList(new TestService());
+        List<Service> services = new ArrayList<>();
+        services.add(new TestService());
+        return services;
     }
     
     public static void main(String[] argv) throws Exception {
