@@ -20,8 +20,12 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.chiralbehaviors.scout.rest.Service;
 import com.chiralbehaviors.scout.rest.ServiceResource;
@@ -53,13 +57,16 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration>{
         if (services == null) {
             services = Collections.emptyList();
         }
+        
         environment.jersey().register(new ServiceResource(services));
-//        while (true) {
-//            for (Service service : services) {
-//                service.updateStatus();
-//            }
-//            Thread.sleep(10000);
-//        }
+        List<ScheduledUpdaterService> emissaries = new ArrayList<>();
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(services.size());
+        
+        for (Service service : services) {
+            ScheduledUpdaterService updater = new ScheduledUpdaterService(service);
+            scheduler.scheduleAtFixedRate(updater, 0, 10, TimeUnit.SECONDS);
+            emissaries.add(updater);
+        }
         
     }
 

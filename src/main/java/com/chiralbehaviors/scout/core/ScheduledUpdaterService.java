@@ -15,26 +15,27 @@
  */
 package com.chiralbehaviors.scout.core;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.chiralbehaviors.scout.rest.Service;
 
 /**
  * @author hparry
  *
  */
-public class SampleScoutApplication extends ScoutApplication {
+public class ScheduledUpdaterService implements Runnable {
 
+    
+    private final Service watchedService;
+    
+    public ScheduledUpdaterService(Service watchedService) {
+        this.watchedService = watchedService;
+    }
     /* (non-Javadoc)
-     * @see com.chiralbehaviors.scout.core.ScoutApplication#getServices()
+     * @see java.lang.Runnable#run()
      */
     @Override
-    public List<Service> getServices() {
-        return Arrays.asList(new TestService());
+    public void run() {
+        watchedService.updateStatus();
+        
     }
-    
-    public static void main(String[] argv) throws Exception {
-        new SampleScoutApplication().run(argv);
-    }
+
 }
