@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chiralbehaviors.scout.core;
+package com.chiralbehaviors.scout.server;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import com.chiralbehaviors.scout.rest.Service;
+import com.chiralbehaviors.scout.core.Scout;
 import com.chiralbehaviors.scout.rest.ServiceResource;
 
 /**
@@ -34,8 +28,6 @@ import com.chiralbehaviors.scout.rest.ServiceResource;
  *
  */
 public class ScoutApplication extends Application<ScoutConfiguration> {
-
-    private List<Service> services;
 
 
     /* (non-Javadoc)
@@ -52,23 +44,11 @@ public class ScoutApplication extends Application<ScoutConfiguration> {
     @Override
     public final void run(ScoutConfiguration configuration,
                           Environment environment) throws Exception {
-        services = configuration.services;
-        if (services == null) {
-            services = Collections.emptyList();
-        }
+        Scout scout = new Scout();
 
-        environment.jersey().register(new ServiceResource(services));
-        List<ScheduledUpdaterService> emissaries = new ArrayList<>();
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(services.size());
-
-        for (Service service : services) {
-            ScheduledUpdaterService updater = new ScheduledUpdaterService(
-                                                                          service);
-            scheduler.scheduleAtFixedRate(updater, 0, service.getInterval(),
-                                          service.getTimeUnit());
-            emissaries.add(updater);
-        }
-
+        environment.jersey().register(new ServiceResource(scout.getServices()));
+        
+        scout.startServices();
     }
 
 }

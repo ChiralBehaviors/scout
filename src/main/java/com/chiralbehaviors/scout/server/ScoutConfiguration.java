@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.chiralbehaviors.scout.core;
+package com.chiralbehaviors.scout.server;
 
 import io.dropwizard.Configuration;
 

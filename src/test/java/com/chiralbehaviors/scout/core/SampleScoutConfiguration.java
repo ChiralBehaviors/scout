@@ -15,6 +15,8 @@
  */
 package com.chiralbehaviors.scout.core;
 
+import com.chiralbehaviors.scout.server.ScoutConfiguration;
+
 /**
  * @author hparry
  *
