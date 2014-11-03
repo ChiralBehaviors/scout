@@ -33,14 +33,10 @@ import com.chiralbehaviors.scout.rest.ServiceResource;
  * @author hparry
  *
  */
-public abstract class ScoutApplication extends Application<ScoutConfiguration> {
+public class ScoutApplication extends Application<ScoutConfiguration> {
 
     private List<Service> services;
 
-    /**
-     * @return a list of Services to be monitored
-     */
-    public abstract List<Service> getServices();
 
     /* (non-Javadoc)
      * @see io.dropwizard.Application#initialize(io.dropwizard.setup.Bootstrap)
@@ -56,8 +52,7 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration> {
     @Override
     public final void run(ScoutConfiguration configuration,
                           Environment environment) throws Exception {
-        initialize(configuration, environment);
-        services = getServices();
+        services = configuration.services;
         if (services == null) {
             services = Collections.emptyList();
         }
@@ -75,7 +70,5 @@ public abstract class ScoutApplication extends Application<ScoutConfiguration> {
         }
 
     }
-    
-    public abstract void initialize(ScoutConfiguration configuration, Environment environment);
 
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2014 Chiral Behaviors, LLC, all rights reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,19 +15,11 @@
  */
 package com.chiralbehaviors.scout.core;
 
-import io.dropwizard.Configuration;
-
-import java.util.List;
-
-import com.chiralbehaviors.scout.rest.Service;
-
 /**
  * @author hparry
  *
  */
-public class ScoutConfiguration extends Configuration {
+public class SampleScoutConfiguration extends ScoutConfiguration {
 
     public String name;
-    public List<Service> services;
-
 }
