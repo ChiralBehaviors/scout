@@ -38,7 +38,8 @@ Create a yaml file for your server config.
 
 Start 'er up.
 
-Your REST service list is at /services.
-Your hacked-together service status UI is at /ui/index.html
+Your REST service list is at **/services**
+
+Your hacked-together service status UI is at **/ui/index.html**
 
 Check out the /src/test/ directory for an example app, example service, and example config file.
