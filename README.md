@@ -30,7 +30,9 @@ Add your dependency:
 
 Create your services. Implement the com.chiralbehaviors.scout.rest.Service interface. updateStatus() is where you put your service testing. 
 
-Create a ScoutApplication. Extend the existing one. The only thing you need to do is return a list of your Service instances.
+Create a Scout object. This stores and initializes your services.
+
+Create a ScoutApplication. Extend the existing one. The only thing you need to do is override the summonScout method. The ScoutApplication will launch a thread per service, register the UI assetBundle, and register the Services REST Resource.
 
 Create a yaml file for your server config. 
 
