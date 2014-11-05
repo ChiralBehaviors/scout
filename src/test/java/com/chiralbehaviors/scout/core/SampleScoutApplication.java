@@ -15,13 +15,27 @@
  */
 package com.chiralbehaviors.scout.core;
 
-import com.chiralbehaviors.scout.server.ScoutConfiguration;
+import com.chiralbehaviors.scout.server.ScoutApplication;
 
 /**
  * @author hparry
  *
  */
-public class SampleScoutConfiguration extends ScoutConfiguration {
+public class SampleScoutApplication extends ScoutApplication {
+    
+    public static void main(String[] args) throws Exception {
+        new SampleScoutApplication().run(args);
+    }
 
-    public String name;
+    /* (non-Javadoc)
+     * @see com.chiralbehaviors.scout.server.ScoutApplication#summonScout()
+     */
+    @Override
+    public Scout summonScout() {
+        Scout scout = new Scout();
+
+        scout.registerService(new TestService());
+        return scout;
+    }
+
 }
