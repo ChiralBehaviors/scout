@@ -27,8 +27,7 @@ import com.chiralbehaviors.scout.rest.ServiceResource;
  * @author hparry
  *
  */
-public class ScoutApplication extends Application<ScoutConfiguration> {
-
+public abstract class ScoutApplication extends Application<ScoutConfiguration> {
 
     /* (non-Javadoc)
      * @see io.dropwizard.Application#initialize(io.dropwizard.setup.Bootstrap)
@@ -42,13 +41,19 @@ public class ScoutApplication extends Application<ScoutConfiguration> {
      * @see io.dropwizard.Application#run(io.dropwizard.Configuration, io.dropwizard.setup.Environment)
      */
     @Override
-    public final void run(ScoutConfiguration configuration,
+    public void run(ScoutConfiguration configuration,
                           Environment environment) throws Exception {
-        Scout scout = new Scout();
+        Scout scout = summonScout();
+        
 
         environment.jersey().register(new ServiceResource(scout.getServices()));
         
         scout.startServices();
     }
+
+    /**
+     * @return
+     */
+    public abstract Scout summonScout();
 
 }

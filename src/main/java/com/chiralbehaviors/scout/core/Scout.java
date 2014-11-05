@@ -30,11 +30,15 @@ public class Scout {
     
     private List<Service> services;
     
+    public Scout() {
+        services = new ArrayList<>();
+    }
+    
     public List<Service> getServices() {
         return services;
     }
     
-    public void startServices() {
+    public List<ScheduledUpdaterService> startServices() {
         List<ScheduledUpdaterService> emissaries = new ArrayList<>();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(services.size());
 
@@ -45,6 +49,11 @@ public class Scout {
                                           service.getTimeUnit());
             emissaries.add(updater);
         }
+        return emissaries;
+    }
+    
+    public void registerService(Service service) {
+        services.add(service);
     }
 
 }
