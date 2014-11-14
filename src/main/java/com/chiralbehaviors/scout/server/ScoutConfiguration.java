@@ -17,17 +17,12 @@ package com.chiralbehaviors.scout.server;
 
 import io.dropwizard.Configuration;
 
-import java.util.List;
-
-import com.chiralbehaviors.scout.rest.Service;
-
 /**
  * @author hparry
  *
  */
 public class ScoutConfiguration extends Configuration {
 
-    public String name;
-    public List<Service> services;
+    public String configFile;
 
 }
